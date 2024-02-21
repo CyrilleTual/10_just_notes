@@ -60,7 +60,11 @@ function Page({ params }: { params: { id: string } }) {
               {note.title}
             </h1>
             <p className="text-slate-200 mb-6">{note.subtitle}</p>
-            <p className="">{note.bodyText}</p>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: note.bodyText  as string,
+              }}
+            ></div>
           </div>
         )}
       </div>

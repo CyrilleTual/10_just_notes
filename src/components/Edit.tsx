@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Note } from "@/store/notesStore"; /// type definition for Note
 import { Button } from "./ui/button";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 interface EditProps {
   id?: string;
@@ -47,6 +49,15 @@ function Edit({ id }: EditProps) {
     setInputsValues((prevState) => ({
       ...prevState,
       [name]: value,
+    }));
+  };
+
+  const handlequillChange = (value: string) => {
+
+    console.log(value);
+    setInputsValues((prevState) => ({
+      ...prevState,
+      bodyText: value,
     }));
   };
 
@@ -131,7 +142,6 @@ function Edit({ id }: EditProps) {
           {showValidation.title && (
             <span className="text-red-600">Le titre est obligatoire</span>
           )}
-
           {/********************* form subTitle **********************************/}
           <label htmlFor="subtitle" className="mb-2 block mt-4 text-slate-100">
             Le sous-titre
@@ -147,23 +157,26 @@ function Edit({ id }: EditProps) {
           {showValidation.subtitle && (
             <span className="text-red-600">Le sous-titre est obligatoire</span>
           )}
-
           {/********************* form bodyText  **********************************/}
           <label htmlFor="bodyText" className="mb-2 mt-4 block text-slate-100">
             Le contenu de la note
           </label>
-          <textarea
+          {/* <textarea
             className="p-2 text-md block w-full rounded bg-slate-200 min-h-[300px]  "
-            
             name="bodyText"
             id="bodyText"
             onChange={(e) => handleInputChange(e)}
             value={inputsValues.bodyText}
+          /> */}
+          <ReactQuill
+            className="p-2 text-md block w-full rounded bg-slate-200 min-h-[300px]"
+            value={inputsValues.bodyText}
+            onChange={handlequillChange}
           />
+          ;
           {showValidation.bodyText && (
             <span className="text-red-600">Le text est obligatoire</span>
           )}
-
           {/**************** subbmit*****************************/}
           <Button className="mt-6 px-7 text-center bg-green-700 hover:bg-green-800 hover:scale-110 font-bold">
             Enregister

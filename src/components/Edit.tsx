@@ -152,9 +152,9 @@ function Edit({ id }: EditProps) {
           <label htmlFor="bodyText" className="mb-2 mt-4 block text-slate-100">
             Le contenu de la note
           </label>
-          <input
+          <textarea
             className="p-2 text-md block w-full rounded bg-slate-200 min-h-[300px]  "
-            type="text"
+            
             name="bodyText"
             id="bodyText"
             onChange={(e) => handleInputChange(e)}

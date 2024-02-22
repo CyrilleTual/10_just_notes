@@ -1,7 +1,5 @@
 import { create } from "zustand";
  import axios from "axios";
- import { persist } from "zustand/middleware";
-import { get } from "http";
 
 //  Define the types for the notes and the store
 export type Note = {
@@ -20,10 +18,7 @@ type NotesStore = {
 };
 
 // Create a store for notes
-export const useNotesStore = create<NotesStore>()(
-  
-  persist( 
-  (set, get) => ({
+export const useNotesStore = create<NotesStore>((set) => ({
   list: [],
   // Add a note to the list
   addNote: (note) => set((state) => ({ list: [...state.list, note] })),
@@ -42,22 +37,13 @@ export const useNotesStore = create<NotesStore>()(
 
   // Add notes from the API
   addNotesFormApi: () => {
-    // check if the list is empty (to avoid rewriting the list if persisted in the local storage)
-    if (get().list.length === 0) {
-      axios.get("../../data/notes.json").then(
-        (response) => {
-          set((state) => ({ list: response.data.notes }));
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    }
-
+    axios.get("../../data/notes.json").then(
+      (response) => {
+        set((state) => ({ list: response.data.notes }));
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   },
-}),{name: "notes-store"})
-
-
-
-
-);
+}));

@@ -5,3 +5,6 @@
 
 /* style made by shadcn */
 @import "../styles/shadcn.css";
+
+/* to fit quill style  */
+@import "../styles/quill.css";

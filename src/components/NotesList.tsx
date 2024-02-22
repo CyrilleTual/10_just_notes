@@ -23,7 +23,7 @@ export default function NotesList() {
                     className="bg-slate-200 hover:bg-slate-50 p-4 rounded cursor-pointer"
                   >
                     <h3 className="text-lg font-semibold">{note.title}</h3>
-                    <p className="text-gray-700">{note.subtitle}</p>
+                    <p className="text-gray-700 ">{note.subtitle}</p>
                   </li>
                 </Link>
               ))}

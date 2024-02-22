@@ -61,8 +61,9 @@ function Page({ params }: { params: { id: string } }) {
             </h1>
             <p className="text-slate-200 mb-6">{note.subtitle}</p>
             <div
+              className=" ql-snow ql-editor"
               dangerouslySetInnerHTML={{
-                __html: note.bodyText  as string,
+                __html: note.bodyText as string,
               }}
             ></div>
           </div>

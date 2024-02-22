@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 
 export default function SideNotes() {
+  
   const list = useNotesStore((state) => state.list);
    useEffect(() => {
      if (list.length === 0) {

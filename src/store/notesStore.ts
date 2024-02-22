@@ -1,9 +1,8 @@
-import { create } from "zustand";
- import axios from "axios";
- import { persist } from "zustand/middleware";
-import { get } from "http";
+import axios        from "axios";
+import { create }   from "zustand";
+import { persist }  from "zustand/middleware";
 
-//  Define the types for the notes and the store
+//  Define the types for the notes and the store //////////////////////////
 export type Note = {
   title: string;
   subtitle: string;
@@ -13,21 +12,25 @@ export type Note = {
 };
 type NotesStore = {
   list: Note[];
-  addNote: (note: Note) => void;
-  removeNote: (id: string) => void;
-  updateNote: (note: Note) => void;
-  addNotesFormApi: () => void;
+  addNote: (note: Note)     => void;
+  removeNote: (id: string)  => void;
+  updateNote: (note: Note)  => void;
+  addNotesFormApi: ()       => void;
 };
 
-// Create a store for notes
+// Create a store for notes ////////////////////////////////////////////////
 export const useNotesStore = create<NotesStore>()(
   
   persist( 
   (set, get) => ({
+
+  // The list of notes
   list: [],
+
   // Add a note to the list
   addNote: (note) => set((state) => ({ list: [...state.list, note] })),
   // Remove a note from the list
+
   removeNote: (id: string) => {
     set((state) => ({
       list: state.list.filter((note) => note.id !== id),
@@ -46,7 +49,7 @@ export const useNotesStore = create<NotesStore>()(
     if (get().list.length === 0) {
       axios.get("../../data/notes.json").then(
         (response) => {
-          set((state) => ({ list: response.data.notes }));
+          set(() => ({ list: response.data.notes }));
         },
         (error) => {
           console.log(error);
@@ -56,8 +59,5 @@ export const useNotesStore = create<NotesStore>()(
 
   },
 }),{name: "notes-store"})
-
-
-
 
 );
